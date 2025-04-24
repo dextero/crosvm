@@ -7,7 +7,7 @@
 
 use std::cmp::Ordering;
 use std::io;
-use std::mem::offset_of;
+use memoffset::offset_of;
 
 use base::debug;
 use base::FileGetLen;

@@ -48,6 +48,7 @@ noncoherent-dma = []
 argh = "0.1.7"
 async-task = "4"
 acpi_tables = {path = "../acpi_tables" }
+memoffset = "0.9.0"
 anyhow = "1"
 async-trait = "0.1.36"
 audio_streams = "*"

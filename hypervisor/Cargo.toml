@@ -14,6 +14,7 @@ gunyah = []
 noncoherent-dma = []
 
 [dependencies]
+memoffset = "0.9.0"
 anyhow = "1"
 bit_field = { path = "../bit_field" }
 bitflags = "2.2.1"

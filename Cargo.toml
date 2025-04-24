@@ -492,6 +492,7 @@ all-android = [
 ]
 
 [dependencies]
+memoffset = "0.9.0"
 anyhow = "1"
 arch = { path = "arch" }
 argh = "0.1.10"

@@ -424,10 +424,10 @@ mod tests {
 
     #[test]
     fn test_inode_size() {
-        assert_eq!(std::mem::offset_of!(Inode, extra_size), 128);
+        assert_eq!(memoffset::offset_of!(Inode, extra_size), 128);
         // Check that no implicit paddings is inserted after the padding field.
         assert_eq!(
-            std::mem::offset_of!(Inode, _paddings) + std::mem::size_of::<u16>(),
+            memoffset::offset_of!(Inode, _paddings) + std::mem::size_of::<u16>(),
             std::mem::size_of::<Inode>()
         );
 

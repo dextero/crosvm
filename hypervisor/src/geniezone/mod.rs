@@ -9,7 +9,7 @@ use std::collections::BTreeMap;
 use std::collections::BinaryHeap;
 use std::convert::TryFrom;
 use std::ffi::CString;
-use std::mem::offset_of;
+use memoffset::offset_of;
 use std::os::raw::c_ulong;
 use std::os::unix::prelude::OsStrExt;
 use std::path::Path;

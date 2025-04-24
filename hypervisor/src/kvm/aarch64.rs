@@ -8,7 +8,7 @@
 
 use std::collections::BTreeMap;
 use std::convert::TryFrom;
-use std::mem::offset_of;
+use memoffset::offset_of;
 
 use aarch64_sys_reg::AArch64SysRegId;
 use anyhow::Context;
