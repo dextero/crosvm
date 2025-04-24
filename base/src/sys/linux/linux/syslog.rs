@@ -11,7 +11,6 @@ use std::os::unix::io::AsRawFd;
 use std::os::unix::io::FromRawFd;
 use std::os::unix::net::UnixDatagram;
 use std::ptr::null;
-use std::sync::OnceLock;
 
 use libc::closelog;
 use libc::fcntl;
@@ -25,6 +24,7 @@ use libc::LOG_NDELAY;
 use libc::LOG_PERROR;
 use libc::LOG_PID;
 use libc::LOG_USER;
+use once_cell::sync::OnceCell;
 
 use super::super::getpid;
 use crate::syslog::Error;
@@ -35,7 +35,7 @@ use crate::RawDescriptor;
 
 /// Global syslog socket derived from the fd opened by `openlog()`.
 /// This is initialized in `PlatformSyslog::new()`.
-static SYSLOG_SOCKET: OnceLock<Result<UnixDatagram, Error>> = OnceLock::new();
+static SYSLOG_SOCKET: OnceCell<Result<UnixDatagram, Error>> = OnceCell::new();
 
 pub struct PlatformSyslog {}
 
@@ -63,7 +63,7 @@ impl Syslog for PlatformSyslog {
         facility: Facility,
     ) -> Result<(Option<Box<dyn log::Log + Send>>, Option<RawDescriptor>), &'static Error> {
         // Calling openlog_and_get_socket() more than once will cause the previous syslogger FD to
-        // be closed, invalidating the log::Log object in an unsafe manner. The OnceLock
+        // be closed, invalidating the log::Log object in an unsafe manner. The OnceCell
         // get_or_init() ensures we only call it once.
         //
         // b/238923791 is tracking fixing this problem.

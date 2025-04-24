@@ -16,7 +16,6 @@ use std::path::PathBuf;
 use std::ptr::addr_of_mut;
 use std::slice;
 use std::sync::Arc;
-use std::sync::OnceLock;
 
 use base::error;
 use base::ioctl;
@@ -36,6 +35,7 @@ use cfg_if::cfg_if;
 use data_model::vec_with_array_field;
 use hypervisor::DeviceKind;
 use hypervisor::Vm;
+use once_cell::sync::OnceCell;
 use rand::seq::index::sample;
 use rand::thread_rng;
 use remain::sorted;
@@ -139,7 +139,7 @@ fn get_error() -> Error {
     Error::last()
 }
 
-static KVM_VFIO_FILE: OnceLock<Option<SafeDescriptor>> = OnceLock::new();
+static KVM_VFIO_FILE: OnceCell<Option<SafeDescriptor>> = OnceCell::new();
 
 fn create_kvm_vfio_file(vm: &impl Vm) -> Option<&'static SafeDescriptor> {
     KVM_VFIO_FILE

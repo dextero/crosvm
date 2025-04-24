@@ -117,6 +117,7 @@ dependencies = [
  "argh",
  "libtracecmd",
  "log",
+ "once_cell",
  "serde",
  "serde_json",
 ]
